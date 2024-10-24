@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAM Web Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GAM Web Interface</h1>
+        <select id="mainMenu">
+            <option value="">Select an option</option>
+            <option value="Email">Email</option>
+            <option value="Classroom">Classroom</option>
+        </select>
+
+        <div id="emailOptions" style="display: none;">
+            <select id="emailSubMenu">
+                <option value="">Select an email option</option>
+                <!-- Email options will be populated dynamically -->
+            </select>
+        </div>
+
+        <div id="classroomOptions" style="display: none;">
+            <!-- Classroom buttons will be populated dynamically -->
+        </div>
+
+        <div id="formContainer"></div>
+    </div>
+    <div id="progressModal" class="modal">
+        <div class="modal-content">
+            <h2>Processing...</h2>
+            <div class="progress-bar">
+                <div class="progress-bar-value"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

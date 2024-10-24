@@ -1,0 +1,135 @@
+{
+  "sections": [
+    {
+      "name": "Email",
+      "type": "dropdown",
+      "options": [
+        {
+          "name": "Unsend Emails",
+          "fields": [
+            {"name": "messageId", "placeholder": "Message ID", "required": true},
+            {"name": "groupReceiver", "placeholder": "Group Receiver Email Address", "required": false},
+            {"name": "receiver", "placeholder": "Receiver Email Address", "required": false}
+          ],
+          "command": "{% if groupReceiver %}group {{groupReceiver}} delete messages query rfc822msgid:{{messageId}} max_to_delete 100 doit{% elif receiver %}user {{receiver}} delete messages query rfc822msgid:{{messageId}} doit{% else %}print 'Error: Either Group Receiver or Receiver Email Address is required.'{% endif %}"
+        },
+        {
+          "name": "Show Forwarding Address",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} show forwardingaddress"
+        },
+        {
+          "name": "Add Forwarding Address",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+            {"name": "forwardingEmail", "placeholder": "Forwarding Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} add forwardingaddress {{forwardingEmail}}"
+        },
+        {
+          "name": "Set Forwarding Address",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+            {"name": "forwardToEmail", "placeholder": "Forward To Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} forward on keep {{forwardToEmail}}"
+        },
+        {
+          "name": "Delete Forwarding Address",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+            {"name": "forwardToEmail", "placeholder": "Delete Forward Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} delete forwardingaddress {{forwardToEmail}}"
+        },
+        {
+          "name": "Show Email Delegates",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} print delegates"
+        },
+        {
+          "name": "Remove Email Delegate",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+            {"name": "delegatedEmail", "placeholder": "Delegated Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} delete delegate {{delegatedEmail}}"
+        },
+        {
+          "name": "Delegate Access",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+            {"name": "delegatingEmail", "placeholder": "Delegating Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} delegate to {{delegatingEmail}}"
+        }
+      ]
+    },
+    {
+      "name": "Classroom",
+      "type": "buttons",
+      "options": [
+        {
+          "name": "Create Classes",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk newcourses gam create course alias '~name' teacher '~teacher' name '~name'"
+        },
+        {
+          "name": "Activate Classes",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk activatecourses gam update course '~id' status ACTIVE"
+        },
+        {
+          "name": "Add Students",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk addstudents gam course '~id' add student '~email'"
+        },
+        {
+          "name": "Add Teachers",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk addteachers gam course '~id' add teacher '~email'"
+        },
+        {
+          "name": "Invite Guardians",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk guardians gam user '~studentemail' add guardian '~guardianemail'"
+        },
+        {
+          "name": "Delete Guardians",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk guardians gam user '~studentemail' delete guardian '~guardianemail'"
+        },
+        {
+          "name": "Archive Classes",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk archive-delete gam update course '~id-archive' state archived"
+        },
+        {
+          "name": "Delete Classes",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk archive-delete gam delete course '~id-delete'"
+        },
+        {
+          "name": "Change Class Name",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk classid gam update course '~id' name '~name'"
+        },
+        {
+          "name": "Delete Students",
+          "command": "csv gsheet fung@hamlin.org 1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk deletestudents gam course '~id' delete student '~email'"
+        },
+        {
+          "name": "Check a Class ID",
+          "fields": [
+            {"name": "className", "placeholder": "Class Name", "required": true}
+          ],
+          "command": "print classes | awk -F',' '/{className}/ {print $1}'"
+        },
+        {
+          "name": "Print All Active Classes",
+          "command": "print courses state active todrive"
+        },        
+        {
+          "name": "Open Data Sheet",
+          "type": "link",
+          "url": "https://docs.google.com/spreadsheets/d/1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk/edit?gid=1273002884#gid=1273002884"
+        }
+      ]
+    }
+  ]
+}
