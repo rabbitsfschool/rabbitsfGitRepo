@@ -25,6 +25,7 @@ pip install flask-cors
 pip install Flask_Limiter
 pip install Jinja2
 brew install openssl
+pip install cryptography
 (I may miss some. You will figure out when you started the application. The terminal will show you.)
  
 
