@@ -130,6 +130,21 @@
           "url": "https://docs.google.com/spreadsheets/d/1nmSNCJ9Liw0H3JtoUIA7Vu2_HCfmBaezGePa5MugZqk/edit?gid=1273002884#gid=1273002884"
         }
       ]
+    },
+    {
+      "name": "Drive Files",
+      "type": "dropdown",
+      "options": [
+        {
+          "name": "Add File Editor",
+          "fields": [
+            {"name": "owner_email_address", "placeholder": "Owner Email Address", "required": true},
+            {"name": "file_ID", "placeholder": "File ID", "required": true},
+            {"name": "editor_email_address", "placeholder": "Editor Email Address", "required": true}
+          ],
+          "command": "user {{owner_email_address}} add drivefileacl {{file_ID}} user {{editor_email_address}} role writer"
+        }
+      ]
     }
   ]
 }

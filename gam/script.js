@@ -17,22 +17,32 @@ function setupUI() {
     const mainMenu = document.getElementById('mainMenu');
     const emailOptions = document.getElementById('emailOptions');
     const classroomOptions = document.getElementById('classroomOptions');
+    const driveOptions = document.getElementById('driveOptions');
     const formContainer = document.getElementById('formContainer');
 
     mainMenu.addEventListener('change', () => {
         if (mainMenu.value === 'Email') {
             emailOptions.style.display = 'block';
             classroomOptions.style.display = 'none';
+            driveOptions.style.display = 'none';
             formContainer.innerHTML = '';
             populateEmailOptions();
         } else if (mainMenu.value === 'Classroom') {
             emailOptions.style.display = 'none';
             classroomOptions.style.display = 'block';
+            driveOptions.style.display = 'none';
             formContainer.innerHTML = '';
             populateClassroomButtons();
+        } else if (mainMenu.value === 'Drive Files') {
+            emailOptions.style.display = 'none';
+            classroomOptions.style.display = 'none';
+            driveOptions.style.display = 'block';
+            formContainer.innerHTML = '';
+            populateDriveOptions();
         } else {
             emailOptions.style.display = 'none';
             classroomOptions.style.display = 'none';
+            driveOptions.style.display = 'none';
             formContainer.innerHTML = '';
         }
     });
@@ -42,6 +52,16 @@ function setupUI() {
         const selectedOption = config.sections.find(s => s.name === 'Email').options.find(o => o.name === emailSubMenu.value);
         if (selectedOption) {
             createForm(selectedOption, 'Email');
+        } else {
+            formContainer.innerHTML = '';
+        }
+    });
+
+    const driveSubMenu = document.getElementById('driveSubMenu');
+    driveSubMenu.addEventListener('change', () => {
+        const selectedOption = config.sections.find(s => s.name === 'Drive Files').options.find(o => o.name === driveSubMenu.value);
+        if (selectedOption) {
+            createForm(selectedOption, 'Drive Files');
         } else {
             formContainer.innerHTML = '';
         }
@@ -221,4 +241,18 @@ function closeConfirmationPopup() {
 function confirmAction(command) {
     closeConfirmationPopup();
     executeCommand('Classroom', command);
+}
+
+function populateDriveOptions() {
+    const driveSubMenu = document.getElementById('driveSubMenu');
+    driveSubMenu.innerHTML = '<option value="">Select a File option</option>';
+    const driveSection = config.sections.find(s => s.name === 'Drive Files');
+    if (driveSection && driveSection.options) {
+        driveSection.options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.name;
+            optionElement.textContent = option.name;
+            driveSubMenu.appendChild(optionElement);
+        });
+    }
 }
