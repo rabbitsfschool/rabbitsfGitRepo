@@ -45,6 +45,29 @@
           "command": "user {{userEmail}} delete forwardingaddress {{forwardToEmail}}"
         },
         {
+          "name": "Show Email Filter (for Multi Users Forwarding)",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} show filter"
+        },
+        {
+          "name": "Create Email Filter (for Multi Users Forwarding)",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+	    {"name": "forwardToEmail", "placeholder": "Forward To Email Address", "required": true}
+          ],
+          "command": "user {{userEmail}} add filter to {{userEmail}} forward {{forwardToEmail}}"
+        },
+        {
+          "name": "Delete Email Filter (for Multi Users Forwarding)",
+          "fields": [
+            {"name": "userEmail", "placeholder": "User Email Address", "required": true},
+	    {"name": "filterID", "placeholder": "Filter ID", "required": true}
+          ],
+          "command": "user {{userEmail}} delete filters {{filterID}}"
+        },
+        {
           "name": "Show Email Delegates",
           "fields": [
             {"name": "userEmail", "placeholder": "User Email Address", "required": true}
